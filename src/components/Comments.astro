@@ -1,0 +1,22 @@
+---
+import { SITE } from '../site.config';
+interface Props { pageId: string; title: string; repo?: string }
+const { pageId, title, repo } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<section class="comments">
+  <h2>Comments</h2>
+  {SITE.cusdisAppId ? (
+    <>
+      <div id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id={SITE.cusdisAppId}
+        data-page-id={pageId}
+        data-page-url={url}
+        data-page-title={title}></div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    </>
+  ) : (
+    <p class="muted">Comments are coming soon. In the meantime, {repo ? <a href={`${repo}/issues`} target="_blank" rel="noopener">open an issue on GitHub</a> : 'open an issue on GitHub'}. (Site owner: add your Cusdis App ID in <code>src/site.config.ts</code>.)</p>
+  )}
+</section>

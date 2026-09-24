@@ -1,0 +1,7 @@
+---
+const { status } = Astro.props as { status: string };
+const labels: Record<string, string> = {
+  idea: 'Idea', 'in-progress': 'In progress', beta: 'Beta', released: 'Released',
+};
+---
+<span class={`badge badge-${status}`}>{labels[status] ?? status}</span>

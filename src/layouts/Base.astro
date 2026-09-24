@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site.config';
+interface Props { title?: string; description?: string }
+const { title = SITE.title, description = SITE.tagline } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {SITE.goatcounterCode && (
+      <script data-goatcounter={`https://${SITE.goatcounterCode}.goatcounter.com/count`} async src="//gc.zgo.at/count.js"></script>
+    )}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a href="/" class="brand"><span class="logo">SC</span>{SITE.name}</a>
+        <nav>
+          <a href="/#projects">Projects</a>
+          <a href="/about">About</a>
+          <a href={SITE.github} target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap"><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {SITE.name}. Built with Astro + Claude Code.</span>
+        {SITE.kofiUsername && (
+          <a class="btn btn-ghost" href={`https://ko-fi.com/${SITE.kofiUsername}`} target="_blank" rel="noopener">☕ Buy me a coffee</a>
+        )}
+      </div>
+    </footer>
+  </body>
+</html>

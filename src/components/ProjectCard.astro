@@ -1,0 +1,21 @@
+---
+import StatusBadge from './StatusBadge.astro';
+const { project } = Astro.props;
+const d = project.data;
+---
+<a class="card" href={`/projects/${project.id}/`}>
+  <div class="card-cover" style={d.cover ? '' : `--accent:${d.accent}`}>
+    {d.cover ? <img src={d.cover} alt="" loading="lazy" /> : <span class="cover-title">{d.title}</span>}
+  </div>
+  <div class="card-body">
+    <div class="card-top">
+      <h3>{d.title}</h3>
+      <StatusBadge status={d.status} />
+    </div>
+    <p>{d.tagline}</p>
+    <ul class="chips">
+      {d.platforms.map((p: string) => <li>{p}</li>)}
+      {d.builtWith.map((b: string) => <li class="chip-ai">{b}</li>)}
+    </ul>
+  </div>
+</a>

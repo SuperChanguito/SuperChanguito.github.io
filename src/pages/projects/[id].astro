@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import Comments from '../../components/Comments.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+---
+<Base title={`${d.title} — SuperChanguito`} description={d.tagline}>
+  <a class="back" href="/#projects">← All projects</a>
+  <article class="project">
+    <header class="project-head">
+      <div class="title-row">
+        <h1>{d.title}</h1>
+        <StatusBadge status={d.status} />
+      </div>
+      <p class="lead">{d.tagline}</p>
+      <div class="actions">
+        {d.demo && <a class="btn" href={d.demo} target="_blank" rel="noopener">▶ Try it live</a>}
+        {d.download && <a class="btn" href={d.download.url} target="_blank" rel="noopener">⬇ {d.download.label}</a>}
+        {d.repo && <a class="btn btn-ghost" href={d.repo} target="_blank" rel="noopener">View source</a>}
+      </div>
+    </header>
+
+    <div class="project-layout">
+      <div class="prose"><Content /></div>
+      <aside class="meta">
+        {d.platforms.length > 0 && (<div><h4>Platforms</h4><ul class="chips">{d.platforms.map((x) => <li>{x}</li>)}</ul></div>)}
+        {d.tech.length > 0 && (<div><h4>Tech</h4><ul class="chips">{d.tech.map((x) => <li>{x}</li>)}</ul></div>)}
+        {d.builtWith.length > 0 && (<div><h4>Built with</h4><ul class="chips">{d.builtWith.map((x) => <li class="chip-ai">{x}</li>)}</ul></div>)}
+        <div><h4>Updated</h4><p>{d.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</p></div>
+      </aside>
+    </div>
+
+    <Comments pageId={project.id} title={d.title} repo={d.repo} />
+  </article>
+</Base>
