@@ -9,10 +9,6 @@ export const SITE = {
     'I build things with AI coding tools and put them all here. Try them, download them, break them, and tell me what you think in the comments.',
   github: 'https://github.com/SuperChanguito',
 
-  // Comments — free at https://cusdis.com (sign up → "New website" → copy the App ID).
-  // Leave empty to show a "comments coming soon" placeholder.
-  cusdisAppId: '',
-
   // Tips — create a free page at https://ko-fi.com and paste your username (e.g. 'superchanguito').
   // Leave empty to hide the tip button.
   kofiUsername: '',

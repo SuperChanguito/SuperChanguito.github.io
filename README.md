@@ -29,9 +29,10 @@ With Claude Code, you can just say:
 Edit `src/site.config.ts`:
 | Feature | Service | Setting |
 |---|---|---|
-| Comments (anyone can post, no login) | [cusdis.com](https://cusdis.com) | `cusdisAppId` |
 | Tip jar | [ko-fi.com](https://ko-fi.com) | `kofiUsername` |
 | Visitor analytics (privacy-friendly) | [goatcounter.com](https://www.goatcounter.com) | `goatcounterCode` |
+
+Comments use [Giscus](https://giscus.app) (GitHub Discussions; commenters sign in with GitHub). The embed lives in `src/components/Comments.astro`.
 
 ## Roadmap (use as GitHub Issues / a Projects board)
 
